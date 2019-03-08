@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, NavLink, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {checkIfAuthed, getFriends} from './actions'
+import {checkIfAuthed, signOut} from './actions'
 
 import ProtectedRoute from './components/ProtectedRoute'
 import LandingPage from './components/LandingPage'
@@ -14,7 +14,6 @@ class App extends Component {
   
   componentDidMount(){
     this.props.checkIfAuthed()
-    this.props.getFriends()
   }
 
   render() {
@@ -30,7 +29,7 @@ class App extends Component {
                 <NavLink exact to = '/friends'>My Friends</NavLink>
               </li>
               <li>
-                <NavLink exact to = '/login'>Login</NavLink>
+                <NavLink exact to = '/login' onClick = {this.props.isAuthed? this.props.signOut :null}>{this.props.isAuthed ? 'SignOut' : 'Login' }</NavLink>
               </li>
             </ul>
           </nav>
@@ -46,4 +45,10 @@ class App extends Component {
   }
 }
 
-export default connect(null, {checkIfAuthed, getFriends})(App);
+const mapStateToProps = state => {
+  return {
+    isAuthed: state.isAuthed
+  }
+}
+
+export default connect(mapStateToProps, {checkIfAuthed, signOut})(App);

@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const LOGIN_START = 'LOGIN_START'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const SIGNOUT = 'SIGNOUT'
 export const ERROR = 'ERROR'
 export const FETCHING_FRIENDS = 'FETCHING_FRIENDS'
 export const FRIENDS_FETCHED = 'FRIENDS_FETCHED' 
@@ -24,6 +25,13 @@ export const login = (username, password) => dispatch => {
     })
 }
 
+export const signOut = () => {
+    localStorage.removeItem('authToken')
+    return {
+        type: SIGNOUT
+    }
+}
+
 export const checkIfAuthed = () => {
     if(localStorage.getItem('authToken')){
         return{
@@ -31,7 +39,7 @@ export const checkIfAuthed = () => {
         }
     }
     return{
-        type: LOGIN_SUCCESS
+        type: ERROR
     }
 }
 
