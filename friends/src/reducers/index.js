@@ -1,4 +1,4 @@
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED} from '../actions'
+import {LOGIN_START, LOGIN_SUCCESS, ERROR} from '../actions'
 
 const initialState = {
     deletingFriend: false,
@@ -22,10 +22,12 @@ export const rootReducer = (state = initialState, action) => {
                 ...state,
                 loggingIn: false
             }
-        case LOGIN_FAILED: 
+        case ERROR: 
+            console.log(action.payload)
             return {
                 ...state,
                 loggingIn: false,
+                error: action.payload
             }
         default: 
             return state

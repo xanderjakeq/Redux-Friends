@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, NavLink, Route} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {checkIfAuthed, getFriends} from './actions'
+
 import ProtectedRoute from './components/ProtectedRoute'
 import LandingPage from './components/LandingPage'
 import LoginPage from './components/LoginPage'
 import FriendsPage from './components/FriendsPage'
 
 class App extends Component {
+  
+  componentDidMount(){
+    this.props.checkIfAuthed()
+    this.props.getFriends()
+  }
+
   render() {
     return (
       <Router>
@@ -37,4 +46,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, {checkIfAuthed, getFriends})(App);

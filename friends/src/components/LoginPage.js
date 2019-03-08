@@ -15,7 +15,9 @@ import {login} from '../actions'
 
     handleLogin = e  => {
         e.preventDefault()
-        this.props.login(this.state.username, this.state.password)
+        this.props.login(this.state.username, this.state.password).then(res => {
+            this.props.history.push('/friends')
+        })
     }
 
     handleChange = e => {
